@@ -21,8 +21,7 @@ module.exports = withModuleFederation({
    * ]
    */
   remotes: [
-    ['cart', '//localhost:4201/'],
-    ['blog', '//localhost:4202/'],
+    ['cd', '//localhost:4201/'],
     ['shop', '//localhost:4203/'],
   ],
 });

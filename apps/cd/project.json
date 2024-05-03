@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/cart/src",
+  "sourceRoot": "apps/cd/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,16 +9,16 @@
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
-        "outputPath": "dist/apps/cart",
-        "index": "apps/cart/src/index.html",
+        "outputPath": "dist/apps/cd",
+        "index": "apps/cd/src/index.html",
         "baseHref": "/",
-        "main": "apps/cart/src/main.ts",
-        "polyfills": "apps/cart/src/polyfills.ts",
-        "tsConfig": "apps/cart/tsconfig.app.json",
-        "assets": ["apps/cart/src/favicon.ico", "apps/cart/src/assets"],
-        "styles": ["apps/cart/src/styles.css"],
+        "main": "apps/cd/src/main.ts",
+        "polyfills": "apps/cd/src/polyfills.ts",
+        "tsConfig": "apps/cd/tsconfig.app.json",
+        "assets": ["apps/cd/src/favicon.ico", "apps/cd/src/assets"],
+        "styles": ["apps/cd/src/styles.css"],
         "scripts": [],
-        "webpackConfig": "apps/cart/webpack.config.js"
+        "webpackConfig": "apps/cd/webpack.config.js"
       },
       "configurations": {
         "development": {
@@ -30,8 +30,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "apps/cart/src/environments/environment.ts",
-              "with": "apps/cart/src/environments/environment.prod.ts"
+              "replace": "apps/cd/src/environments/environment.ts",
+              "with": "apps/cd/src/environments/environment.prod.ts"
             }
           ],
           "optimization": true,
@@ -40,7 +40,7 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false,
-          "webpackConfig": "apps/cart/webpack.config.prod.js"
+          "webpackConfig": "apps/cd/webpack.config.prod.js"
         }
       }
     },
@@ -48,16 +48,16 @@
       "executor": "@nrwl/react:module-federation-dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "cart:build",
+        "buildTarget": "cd:build",
         "hmr": true,
         "port": 4201
       },
       "configurations": {
         "development": {
-          "buildTarget": "cart:build:development"
+          "buildTarget": "cd:build:development"
         },
         "production": {
-          "buildTarget": "cart:build:production",
+          "buildTarget": "cd:build:production",
           "hmr": false
         }
       }
@@ -66,14 +66,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/cart/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/cd/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/cart"],
+      "outputs": ["coverage/apps/cd"],
       "options": {
-        "jestConfig": "apps/cart/jest.config.ts",
+        "jestConfig": "apps/cd/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -81,15 +81,15 @@
       "executor": "@nrwl/web:file-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "cart:build",
+        "buildTarget": "cd:build",
         "port": 4201
       },
       "configurations": {
         "development": {
-          "buildTarget": "cart:build:development"
+          "buildTarget": "cd:build:development"
         },
         "production": {
-          "buildTarget": "cart:build:production"
+          "buildTarget": "cd:build:production"
         }
       }
     }

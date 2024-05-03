@@ -10,9 +10,7 @@ import {
 import { loadRemoteModule } from '@microfrontends/load-remote-module';
 import Blocker from '../blocker';
 
-const Cart = React.lazy(() => loadRemoteModule('cart', './Module'));
-
-const Blog = React.lazy(() => loadRemoteModule('blog', './Module'));
+const Cart = React.lazy(() => loadRemoteModule('cd', './Module'));
 
 const Shop = React.lazy(() => loadRemoteModule('shop', './Module'));
 
@@ -27,11 +25,7 @@ const rootRoute = createRootRoute({
           </li>
 
           <li>
-            <Link to="/cart">Cart</Link>
-          </li>
-
-          <li>
-            <Link to="/blog">Blog</Link>
+            <Link to="/cd">Controlled Docs</Link>
           </li>
 
           <li>
@@ -54,21 +48,14 @@ const indexRoute = createRoute({
   component: () => <h1>Hello</h1>,
 });
 
-const cartRoute = createRoute({
-  path: '/cart',
+const CDRoute = createRoute({
+  path: '/cd',
   component: Cart,
   getParentRoute() {
     return rootRoute;
   },
 });
 
-const blogRoute = createRoute({
-  path: '/blog',
-  component: Blog,
-  getParentRoute() {
-    return rootRoute;
-  },
-});
 
 const shopRoute = createRoute({
   path: '/shop',
@@ -82,8 +69,7 @@ const shopRoute = createRoute({
 //@ts-ignore
 const routeTree = rootRoute.addChildren([
   indexRoute,
-  cartRoute,
-  blogRoute,
+  CDRoute,
   shopRoute,
 ]);
 
