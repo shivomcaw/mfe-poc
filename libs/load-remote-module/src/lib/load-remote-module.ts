@@ -19,8 +19,8 @@ export function setRemoteDefinitions(definitions: Record<string, string>) {
   remoteUrlDefinitions = definitions;
 }
 
-let remoteModuleMap = new Map<string, unknown>();
-let remoteContainerMap = new Map<string, unknown>();
+const remoteModuleMap = new Map<string, unknown>();
+const remoteContainerMap = new Map<string, unknown>();
 
 export async function loadRemoteModule(remoteName: string, moduleName: string) {
   const remoteModuleKey = `${remoteName}:${moduleName}`;

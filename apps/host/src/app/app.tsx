@@ -8,33 +8,37 @@ import {
   createRouter,
 } from '@tanstack/react-router';
 import { loadRemoteModule } from '@microfrontends/load-remote-module';
-import Blocker from '../blocker';
+import ModuleFederationConfig from '../../module-federation.config';
+
+const remotes = ModuleFederationConfig.remotes ?? [];
 
 const Cart = React.lazy(() => loadRemoteModule('cd', './Module'));
-
 const Shop = React.lazy(() => loadRemoteModule('shop', './Module'));
 
 const rootRoute = createRootRoute({
   component: () => {
     return (
-      <div>
-        <h1>Welcome to React Router!</h1>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-
-          <li>
-            <Link to="/cd">Controlled Docs</Link>
-          </li>
-
-          <li>
-            <Link to="/shop">Shop</Link>
-          </li>
-        </ul>
-        <Blocker>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+        }}
+      >
+        <h1>Welcome to Tanstack Router!</h1>
+        <div style={{ display: 'flex', gap: 16 }}>
+          <Link to="/">Home</Link>
+          {remotes.map((remote) => {
+            return (
+              <Link key={remote} to={`/${remote}`}>
+                {remote.toUpperCase()}
+              </Link>
+            );
+          })}
+        </div>
+        <React.Suspense fallback={<h1>Loading...</h1>}>
           <Outlet />
-        </Blocker>
+        </React.Suspense>
       </div>
     );
   },
@@ -45,7 +49,7 @@ const indexRoute = createRoute({
   getParentRoute() {
     return rootRoute;
   },
-  component: () => <h1>Hello</h1>,
+  component: () => <h1>Home</h1>,
 });
 
 const CDRoute = createRoute({
@@ -55,7 +59,6 @@ const CDRoute = createRoute({
     return rootRoute;
   },
 });
-
 
 const shopRoute = createRoute({
   path: '/shop',
@@ -67,13 +70,9 @@ const shopRoute = createRoute({
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-const routeTree = rootRoute.addChildren([
-  indexRoute,
-  CDRoute,
-  shopRoute,
-]);
+const routeTree = rootRoute.addChildren([indexRoute, CDRoute, shopRoute]);
 
-const router = createRouter({ routeTree });
+const router = createRouter({ routeTree, notFoundMode: 'fuzzy' });
 
 declare module '@tanstack/react-router' {
   interface Register {
